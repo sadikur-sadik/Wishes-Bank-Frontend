@@ -1,8 +1,10 @@
+import React from "react";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ReduxProvider from "@/store/ReduxProvider";
 import Navbar from "@/app/components/common/Navbar";
+import GlobalToast from "@/components/common/GlobalToast";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,7 +21,7 @@ export const metadata: Metadata = {
   description: "Premium digital banking — loans, transfers, savings.",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="en"
@@ -36,6 +38,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-full flex flex-col bg-background text-foreground transition-colors duration-200">
         <ReduxProvider>
           <Navbar />
+          <GlobalToast />
           <main className="flex-1">{children}</main>
         </ReduxProvider>
       </body>
