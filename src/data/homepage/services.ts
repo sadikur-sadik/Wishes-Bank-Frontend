@@ -17,7 +17,7 @@ export const defaultBankingServicesData: BankingServicesSectionData = {
         "No hidden account fees",
       ],
       iconName: "Wallet",
-      href: "/register",
+      href: "/personal-banking",
       badge: "Popular",
     },
     {
@@ -44,7 +44,7 @@ export const defaultBankingServicesData: BankingServicesSectionData = {
         "Customizable daily limits",
       ],
       iconName: "ArrowLeftRight",
-      href: "/register",
+      href: "/money-transfer",
     },
     {
       id: "loans-and-financing",
@@ -57,7 +57,7 @@ export const defaultBankingServicesData: BankingServicesSectionData = {
         "Quick online approval",
       ],
       iconName: "Landmark",
-      href: "/register",
+      href: "/loans",
       badge: "Low Rates",
     },
     {

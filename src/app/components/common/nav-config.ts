@@ -11,18 +11,18 @@ export const NAV_LINKS: NavItem[] = [
   },
   {
     title: "Personal Banking",
-    href: "/home#personal",
+    href: "/personal-banking",
   },
   {
     title: "Loans",
-    href: "/home#loans",
+    href: "/loans",
   },
   {
     title: "Money Transfer",
-    href: "/home#transfer",
+    href: "/money-transfer",
   },
   {
     title: "About Us",
-    href: "/home#about",
+    href: "/about",
   },
 ]

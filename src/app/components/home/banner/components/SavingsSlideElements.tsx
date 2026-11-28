@@ -100,10 +100,10 @@ export default function SavingsSlideElements() {
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0 }}
         transition={{ delay: 0.55, type: 'spring', stiffness: 180 }}
-        className="absolute right-[5%] bottom-[16%] z-20 hidden md:flex items-center gap-2 bg-emerald-950/40 backdrop-blur-md border border-emerald-500/30 rounded-full px-3 py-1.5 shadow-lg"
+        className="absolute right-[5%] bottom-[16%] z-20 hidden md:flex items-center gap-2 bg-card/90 dark:bg-emerald-950/40 backdrop-blur-md border border-border dark:border-emerald-500/30 rounded-full px-3 py-1.5 shadow-md"
       >
-        <Shield size={13} className="text-emerald-400" />
-        <span className="text-emerald-200 text-[11px] font-semibold">RBI Insured · DICGC Protected</span>
+        <Shield size={13} className="text-primary dark:text-emerald-400" />
+        <span className="text-foreground dark:text-emerald-200 text-[11px] font-semibold">RBI Insured · DICGC Protected</span>
       </motion.div>
 
       {/* ── Verified badge (decorative) ── */}

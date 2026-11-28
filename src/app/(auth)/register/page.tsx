@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { UserRole } from "@/types/user";
+import { showSuccess, showError } from "@/lib/toast";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -44,11 +45,13 @@ export default function RegisterPage() {
 
     if (password !== confirmPassword) {
       setError("Passwords do not match");
+      showError("Passwords do not match");
       return;
     }
 
     if (password.length < 6) {
       setError("Password must be at least 6 characters long");
+      showError("Password must be at least 6 characters long");
       return;
     }
 
@@ -72,23 +75,29 @@ export default function RegisterPage() {
       const data = await res.json();
 
       if (!res.ok) {
-        setError(data.message || "Failed to register. Please try again.");
+        const msg = data.message || "Failed to register. Please try again.";
+        setError(msg);
+        showError(msg);
         setLoading(false);
         return;
       }
 
       if (data.isPendingApproval || role === UserRole.STAFF) {
+        showSuccess("Staff request submitted for administrative review.");
         setIsPendingStaffScreen(true);
         setLoading(false);
         return;
       }
 
+      showSuccess("Account registered successfully! Redirecting to sign in...");
       setSuccess("Account registered successfully! Redirecting to sign in...");
       setTimeout(() => {
         router.push("/login");
       }, 1500);
     } catch {
-      setError("An unexpected error occurred during registration. Please try again.");
+      const msg = "An unexpected error occurred during registration. Please try again.";
+      setError(msg);
+      showError(msg);
       setLoading(false);
     }
   };

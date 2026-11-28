@@ -3,15 +3,28 @@
 import * as React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Landmark, Menu, ShieldCheck, ArrowRight } from "lucide-react"
+import { useSession } from "next-auth/react"
+import { Landmark, Menu, ShieldCheck, ArrowRight, LayoutDashboard } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Sheet } from "@/components/ui/sheet"
+import { ThemeToggle } from "@/components/common/ThemeToggle"
 import { NAV_LINKS } from "./nav-config"
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false)
   const pathname = usePathname()
+  const { data: session, status } = useSession()
+
+  const isAuthenticated = status === "authenticated" && !!session?.user
+  const isLoading = status === "loading"
+
+  const dashboardHref = React.useMemo(() => {
+    const role = (session?.user as any)?.role
+    if (role === "ADMIN") return "/dashboard/admin"
+    if (role === "STAFF") return "/dashboard/staff"
+    return "/dashboard/customer"
+  }, [session])
 
   // Ensure only ONE navbar is rendered on dashboard pages
   if (pathname?.startsWith("/dashboard")) {
@@ -70,28 +83,47 @@ export default function Navbar() {
 
         {/* ── Right Section: Desktop CTAs ── */}
         <div className="hidden md:flex items-center gap-3">
-          <Link href="/login">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="font-medium text-foreground hover:text-primary"
-            >
-              Sign In
-            </Button>
-          </Link>
-          <Link href="/register">
-            <Button
-              size="sm"
-              className="bg-primary text-primary-foreground font-semibold hover:bg-primary/90 shadow-sm transition-all"
-            >
-              Get Started
-              <ArrowRight className="ml-1 h-3.5 w-3.5" />
-            </Button>
-          </Link>
+          <ThemeToggle />
+          {isLoading ? (
+            <div className="h-9 w-28 rounded-md bg-muted/40 animate-pulse" />
+          ) : isAuthenticated ? (
+            <Link href={dashboardHref}>
+              <Button
+                size="sm"
+                className="bg-primary text-primary-foreground font-semibold hover:bg-primary/90 shadow-sm transition-all gap-1.5"
+              >
+                <LayoutDashboard className="h-4 w-4" />
+                <span>Go to Dashboard</span>
+                <ArrowRight className="h-3.5 w-3.5" />
+              </Button>
+            </Link>
+          ) : (
+            <>
+              <Link href="/login">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="font-medium text-foreground hover:text-primary"
+                >
+                  Sign In
+                </Button>
+              </Link>
+              <Link href="/register">
+                <Button
+                  size="sm"
+                  className="bg-primary text-primary-foreground font-semibold hover:bg-primary/90 shadow-sm transition-all"
+                >
+                  Get Started
+                  <ArrowRight className="ml-1 h-3.5 w-3.5" />
+                </Button>
+              </Link>
+            </>
+          )}
         </div>
 
         {/* ── Mobile Menu Hamburger Trigger ── */}
         <div className="flex md:hidden items-center gap-2">
+          <ThemeToggle />
           <Button
             variant="ghost"
             size="icon"
@@ -154,26 +186,44 @@ export default function Navbar() {
 
           {/* Drawer Bottom Actions & Security Notice */}
           <div className="flex flex-col gap-3 pt-6 border-t border-border">
-            <Link
-              href="/register"
-              onClick={() => setMobileMenuOpen(false)}
-              className="w-full"
-            >
-              <Button className="w-full bg-primary text-primary-foreground font-semibold hover:bg-primary/90">
-                Get Started
-                <ArrowRight className="ml-1.5 h-4 w-4" />
-              </Button>
-            </Link>
+            {isLoading ? (
+              <div className="h-10 w-full rounded-lg bg-muted/40 animate-pulse" />
+            ) : isAuthenticated ? (
+              <Link
+                href={dashboardHref}
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full"
+              >
+                <Button className="w-full bg-primary text-primary-foreground font-semibold hover:bg-primary/90 gap-1.5">
+                  <LayoutDashboard className="h-4 w-4" />
+                  <span>Go to Dashboard</span>
+                  <ArrowRight className="ml-1 h-3.5 w-3.5" />
+                </Button>
+              </Link>
+            ) : (
+              <>
+                <Link
+                  href="/register"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="w-full"
+                >
+                  <Button className="w-full bg-primary text-primary-foreground font-semibold hover:bg-primary/90">
+                    Get Started
+                    <ArrowRight className="ml-1.5 h-4 w-4" />
+                  </Button>
+                </Link>
 
-            <Link
-              href="/login"
-              onClick={() => setMobileMenuOpen(false)}
-              className="w-full"
-            >
-              <Button variant="outline" className="w-full">
-                Sign In
-              </Button>
-            </Link>
+                <Link
+                  href="/login"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="w-full"
+                >
+                  <Button variant="outline" className="w-full">
+                    Sign In
+                  </Button>
+                </Link>
+              </>
+            )}
 
             <div className="flex items-center justify-center gap-1.5 text-xs text-muted-foreground pt-2">
               <ShieldCheck className="h-3.5 w-3.5 text-primary" />

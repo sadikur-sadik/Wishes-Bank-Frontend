@@ -34,10 +34,10 @@ export const defaultFooterData: FooterData = {
   servicesLinks: {
     title: "Banking Services",
     links: [
-      { label: "Personal Banking", href: "/register" },
+      { label: "Personal Banking", href: "/personal-banking" },
       { label: "Savings Accounts", href: "/register" },
-      { label: "Money Transfers", href: "/register" },
-      { label: "Loans & Financing", href: "/register" },
+      { label: "Money Transfers", href: "/money-transfer" },
+      { label: "Loans & Financing", href: "/loans" },
       { label: "Digital Management", href: "/login" },
     ],
   },

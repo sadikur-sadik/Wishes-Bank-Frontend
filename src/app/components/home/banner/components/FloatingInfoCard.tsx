@@ -41,15 +41,15 @@ export default function FloatingInfoCard({
           ease: 'easeInOut',
           delay: delay * 0.5,
         }}
-        className="bg-slate-900/60 backdrop-blur-xl border border-white/15 rounded-2xl p-3.5 shadow-2xl min-w-[155px] max-w-[210px]"
+        className="bg-card/95 dark:bg-slate-900/80 backdrop-blur-xl border border-border dark:border-white/15 rounded-2xl p-3.5 shadow-2xl min-w-[155px] max-w-[210px]"
       >
         {/* Header row */}
         <div className="flex items-center justify-between gap-2 mb-1.5">
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-emerald-500/15 border border-emerald-400/25 flex items-center justify-center text-emerald-300">
+            <div className="w-7 h-7 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center text-primary dark:bg-emerald-500/15 dark:border-emerald-400/25 dark:text-emerald-300">
               {icon}
             </div>
-            <span className="text-white/65 text-[11px] font-medium leading-tight">{label}</span>
+            <span className="text-muted-foreground dark:text-white/65 text-[11px] font-medium leading-tight">{label}</span>
           </div>
           {badge && (
             <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full border ${badgeColor}`}>
@@ -59,9 +59,9 @@ export default function FloatingInfoCard({
         </div>
 
         {/* Value */}
-        <p className="text-white font-bold text-lg leading-tight tracking-tight">{value}</p>
+        <p className="text-card-foreground dark:text-white font-bold text-lg leading-tight tracking-tight">{value}</p>
         {sub && (
-          <p className="text-white/50 text-[10px] mt-0.5 leading-tight">{sub}</p>
+          <p className="text-muted-foreground/80 dark:text-white/50 text-[10px] mt-0.5 leading-tight">{sub}</p>
         )}
       </motion.div>
     </motion.div>

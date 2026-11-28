@@ -6,6 +6,7 @@ import { SessionProvider, useSession } from "next-auth/react";
 import { useEffect, type ReactNode } from "react";
 import { useAppDispatch } from "@/store/hooks";
 import { setAuthUser, clearAuthUser, AuthUserState } from "@/store/slices/authSlice";
+import { GlobalToast } from "@/components/common/GlobalToast";
 
 function AuthSync() {
   const { data: session, status } = useSession();
@@ -38,6 +39,7 @@ export default function ReduxProvider({ children }: { children: ReactNode }) {
     <SessionProvider>
       <Provider store={store}>
         <AuthSync />
+        <GlobalToast />
         {children}
       </Provider>
     </SessionProvider>

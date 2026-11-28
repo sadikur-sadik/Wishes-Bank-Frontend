@@ -7,6 +7,7 @@ import { signIn, useSession } from "next-auth/react";
 import { Landmark, Eye, EyeOff, Loader2, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { UserRole } from "@/types/user";
+import { showSuccess, showError } from "@/lib/toast";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -52,9 +53,12 @@ export default function LoginPage() {
 
       if (res?.error) {
         setError(res.error);
+        showError(res.error);
         setLoading(false);
         return;
       }
+
+      showSuccess("Signed in successfully!");
 
       // Fetch verified user from /api/v1/auth/me to guarantee accurate role redirection
       const meRes = await fetch("/api/v1/auth/me");
@@ -72,6 +76,7 @@ export default function LoginPage() {
       router.refresh();
     } catch {
       setError("An unexpected error occurred. Please try again.");
+      showError("An unexpected error occurred. Please try again.");
       setLoading(false);
     }
   };

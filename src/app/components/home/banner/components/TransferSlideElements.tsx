@@ -126,10 +126,10 @@ export default function TransferSlideElements() {
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0 }}
         transition={{ delay: 0.55 }}
-        className="absolute right-[5%] bottom-[16%] z-20 hidden md:flex items-center gap-2 bg-emerald-950/40 backdrop-blur-md border border-emerald-500/30 rounded-full px-3 py-1.5 shadow-lg"
+        className="absolute right-[5%] bottom-[16%] z-20 hidden md:flex items-center gap-2 bg-card/90 dark:bg-emerald-950/40 backdrop-blur-md border border-border dark:border-emerald-500/30 rounded-full px-3 py-1.5 shadow-md"
       >
-        <Zap size={13} className="text-emerald-400" />
-        <span className="text-emerald-200 text-[11px] font-semibold">Instant Settlement · 24/7 Live</span>
+        <Zap size={13} className="text-primary dark:text-emerald-400" />
+        <span className="text-foreground dark:text-emerald-200 text-[11px] font-semibold">Instant Settlement · 24/7 Live</span>
       </motion.div>
 
       {/* ── Success badge check ── */}
